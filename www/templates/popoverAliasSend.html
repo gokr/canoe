@@ -1,0 +1,16 @@
+<ion-popover-view style="height: 0px">
+   <div class="card" style="text-align: center">
+      <div class="item item-heading">
+         <span translate>Address found!</span>
+      </div>
+      <div class="list">
+         <div class="item">
+            <span class="item">{{opencapAddress}}</span>
+            <button ng-click="confirmOpenapAddress(opencapAddress)" class="button button-standard button-primary"  translate>Send</button>
+            <span ng-if="!opencapDnssec" style="color: red; " translate>
+               DNSSEC not used
+            </span>
+         </div>
+      </div>
+   </div>
+</ion-popover-view>

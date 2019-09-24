@@ -1,6 +1,6 @@
 'use strict'
 /* global angular */
-angular.module('canoeApp.controllers').controller('tabSendController', function ($scope, $rootScope, $log, $timeout, $ionicScrollDelegate, addressbookService, profileService, lodash, $state, incomingData, popupService, platformInfo, gettextCatalog, scannerService, externalLinkService) {
+angular.module('canoeApp.controllers').controller('tabSendController', function ($scope, $rootScope, $log, $timeout, $ionicScrollDelegate, $ionicPopover, addressbookService, profileService, lodash, $state, incomingData, popupService, platformInfo, gettextCatalog, scannerService, externalLinkService, opencapService) {
   var originalList
   var completeContacts
   var CONTACTS_SHOW_LIMIT
@@ -101,7 +101,38 @@ angular.module('canoeApp.controllers').controller('tabSendController', function 
     }
   }
 
+  $scope.closePopover = function() {
+      $scope.popover.hide();
+  };
+
+  $scope.$on('$destroy', function() {
+      $scope.popover.remove();
+  });
+
+  $scope.confirmOpenapAddress = function(address){
+    $scope.popover.remove();
+    $scope.findContact(address);
+  }
+
+  $scope.resolveOpencapAlias = function(alias){
+    opencapService.getAddress(alias)
+    .then(result => {
+      $scope.opencapAddress = result.address;
+      $scope.opencapDnssec = result.dnssec;
+      $ionicPopover.fromTemplateUrl('templates/popoverAliasSend.html', {scope: $scope})
+      .then(function(popover) {
+          $scope.popover = popover;
+          popover.show(angular.element(document.querySelector('#search-input')))
+      });
+    })
+    .catch(status => {
+      // do nothing because they may have been typing
+    });
+  }
+
   $scope.findContact = function (search) {
+    $scope.resolveOpencapAlias(search);
+
     // If redir returns true it matched something and
     // will already have moved us to amount.
     incomingData.redir(search, $scope.acc.id, function (err, code) {
