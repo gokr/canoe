@@ -150,7 +150,7 @@
     "cordova": "^8.1.2",
     "grunt": "^1.0.3",
     "grunt-contrib-uglify-es": "^3.3.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "nw-builder": "^3.5.7",
     "nw-gyp": "^3.6.3",
     "pre-commit": "^1.2.2",
