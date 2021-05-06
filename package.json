@@ -101,7 +101,7 @@
     "ionic": "4.10.3",
     "ionic-plugin-keyboard": "^2.2.1",
     "load-grunt-tasks": "^4.0.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "pbkdf2": "^3.0.17",
     "phonegap-nfc": "^1.0.3",
     "raiblocks-pow": "0.0.3",
